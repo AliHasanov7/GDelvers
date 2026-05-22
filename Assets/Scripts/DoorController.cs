@@ -1,33 +1,48 @@
 using UnityEngine;
+using UnityEngine.InputSystem; 
 
 public class DoorController : MonoBehaviour
 {
-    private Animator animator;
+    [Header("Настройки двери")]
+    public float openAngle = 90f; 
+    public float smoothSpeed = 2f; 
+
+    private bool isPlayerNearby = false;
     private bool isOpen = false;
-    public bool isLocked = true;
     
+    private Quaternion defaultRotation;
+    private Quaternion openRotation;
+
     void Start()
     {
-        animator = GetComponent<Animator>();
+        defaultRotation = transform.localRotation;
+        openRotation = Quaternion.Euler(0, openAngle, 0) * defaultRotation;
     }
 
-    public void ToggleDoor(PlayerInteraction player)
+    void Update()
     {
-        if (isLocked)
+        if (isPlayerNearby && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
-            if (player.HasKeyInHand())
-            {
-                isLocked = false;
-                Debug.Log("Дверь отперта ключом!");
-            }
-            else
-            {
-                Debug.Log("Дверь заперта! Нужен ключ в руке.");
-                return; 
-            }
+            isOpen = !isOpen; 
         }
 
-        isOpen = !isOpen;
-        animator.SetBool("IsOpen", isOpen);
+        Quaternion targetRotation = isOpen ? openRotation : defaultRotation;
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime * smoothSpeed);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerNearby = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerNearby = false;
+        }
     }
 }
