@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de42a63468efb4429869b72d4ec21b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  moveSpeed: 1
+  moveSpeed: 5
   gravity: -9.81
   jumpHeight: 1.5
   groundCheck: {fileID: 1772919292}
@@ -530,7 +530,7 @@ PrefabInstance:
     - target: {fileID: 7869543608362826461, guid: 9bd72731ebe2248478ba4849c274a43b, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 5f61255f6f6a2b641b6d07bb783d8ced, type: 2}
+      objectReference: {fileID: 9100000, guid: 2a20af36cc9979b4485a8e44de4dd09c, type: 2}
     - target: {fileID: 7869543608362826461, guid: 9bd72731ebe2248478ba4849c274a43b, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
