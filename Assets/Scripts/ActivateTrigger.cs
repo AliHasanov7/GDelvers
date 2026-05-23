@@ -10,6 +10,8 @@ public class ActivateTrigger : MonoBehaviour
         {
             if (enemyToActivate != null)
             {
+                
+                AudioManager.Instance.playMusic("Stress");
                 enemyToActivate.isChasing = true;
             }
         }

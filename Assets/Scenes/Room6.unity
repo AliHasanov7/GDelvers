@@ -678,11 +678,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   SFXclip:
-  - audioName: scared
-    audioClip: {fileID: 0}
-  - audioName: 
-    audioClip: {fileID: 0}
-  Musicclip: []
+  - audioName: Picking up
+    audioClip: {fileID: 8300000, guid: cf393acfc0ebb8a4da9f183ed7d73735, type: 3}
+  - audioName: Waking up
+    audioClip: {fileID: 8300000, guid: 64781a4582fb68142b1f289baf799601, type: 3}
+  - audioName: Want to shot a video
+    audioClip: {fileID: 8300000, guid: 1d16c9bc2b4c9e647bd45de0b106e585, type: 3}
+  - audioName: Entering to fabric
+    audioClip: {fileID: 8300000, guid: b92c01d4b0f452b40baf151b545d12a5, type: 3}
+  - audioName: Dying
+    audioClip: {fileID: 8300000, guid: 63ff2d0fed3f2aa4f8e53802bbcb346b, type: 3}
+  - audioName: Shit door is locked
+    audioClip: {fileID: 8300000, guid: 8e03fbdb85bb8c84ea6a148b2e5a0677, type: 3}
+  - audioName: Locked door
+    audioClip: {fileID: 8300000, guid: 373328136939f854ab6cbea6317aed8e, type: 3}
+  - audioName: Main menu
+    audioClip: {fileID: 8300000, guid: cb71def265e3214418513a265a0bc8c0, type: 3}
+  - audioName: Tunnel sound
+    audioClip: {fileID: 8300000, guid: 7f948dd8f791ddd409ebb7b485289af2, type: 3}
+  Musicclip:
+  - audioName: Stress
+    audioClip: {fileID: 8300000, guid: 65920dc2cfb12e74ea3365e551036906, type: 3}
   musicSource: {fileID: 824320944}
   sfxSource: {fileID: 1501191085}
 --- !u!4 &778304463

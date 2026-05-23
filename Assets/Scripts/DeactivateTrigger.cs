@@ -10,6 +10,7 @@ public class DeactivateTrigger : MonoBehaviour
         {
             if (enemyToActivate != null)
             {
+                AudioManager.Instance.StopMusic();
                 enemyToActivate.isChasing = false;
             }
         }
