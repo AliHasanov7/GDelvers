@@ -1,33 +1,69 @@
 using UnityEngine;
+using UnityEngine.InputSystem; 
 
 public class DoorController : MonoBehaviour
 {
-    private Animator animator;
+    public float openAngle = 90f; 
+    public float smoothSpeed = 2f; 
+
+    public bool isLocked = false;
+    public string requiredKeyID = "GoldKey";
+
+    private bool isPlayerNearby = false;
     private bool isOpen = false;
-    public bool isLocked = true;
     
+    private Quaternion defaultRotation;
+    private Quaternion openRotation;
+    private PlayerInventory playerInventory; 
+
     void Start()
     {
-        animator = GetComponent<Animator>();
+        defaultRotation = transform.localRotation;
+        openRotation = Quaternion.Euler(0, openAngle, 0) * defaultRotation;
     }
 
-    public void ToggleDoor(PlayerInteraction player)
+    void Update()
+    {
+        if (isPlayerNearby && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            TryInteractWithDoor();
+        }
+
+        Quaternion targetRotation = isOpen ? openRotation : defaultRotation;
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, Time.deltaTime * smoothSpeed);
+    }
+
+    private void TryInteractWithDoor()
     {
         if (isLocked)
         {
-            if (player.HasKeyInHand())
+            if (playerInventory != null && playerInventory.HasKey(requiredKeyID))
             {
-                isLocked = false;
-                Debug.Log("Дверь отперта ключом!");
-            }
-            else
-            {
-                Debug.Log("Дверь заперта! Нужен ключ в руке.");
-                return; 
+                isLocked = false; // Отпираем дверь навсегда
+                isOpen = true;    // Сразу открываем её
             }
         }
+        else
+        {
+            isOpen = !isOpen; 
+        }
+    }
 
-        isOpen = !isOpen;
-        animator.SetBool("IsOpen", isOpen);
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerNearby = true;
+            playerInventory = other.GetComponent<PlayerInventory>();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerNearby = false;
+            playerInventory = null; 
+        }
     }
 }
